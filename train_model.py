@@ -12,6 +12,7 @@ from keras.callbacks import *
 import keras.backend as K
 from keras.models import load_model
 
+import sys
 
 path = "gwern/midis"
 frequent_notes_threshold = 256
@@ -105,7 +106,7 @@ from multiprocess import Pool
 import time
 
 
-TRAINING_SET_SIZE = 4096 ## Cambiar
+TRAINING_SET_SIZE = int(sys.argv[1]) ## Cambiar
 NTHREADS = 32 ## Cambiar si necesario
 
 files = [y for x in os.walk(path) for y in glob(os.path.join(x[0], '*.mid'))]
@@ -205,8 +206,10 @@ model.add(Dense(len(unique_outputs), activation='softmax'))
     
 model.compile(loss='sparse_categorical_crossentropy', optimizer='adam')
 
-model_name = 'Gwern_big_model_4096.h5' ## Cambiar.
+model_name = sys.argv[2] ## Cambiar.
+
 epochs = 50
+
 checkpoint = ModelCheckpoint(model_name, monitor='val_loss', mode='min', save_best_only=True,verbose=1)
 history = model.fit(np.array(input_training),np.array(output_training), batch_size=1024, epochs=epochs, validation_data=(np.array(input_validation),np.array(output_validation)),verbose=1, callbacks=[checkpoint])
 
