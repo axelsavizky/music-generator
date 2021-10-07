@@ -161,6 +161,11 @@ outputs=np.array(outputs)
 
 unique_inputs = list(set(inputs.ravel()))
 input_note_to_int = dict((note_, number) for number, note_ in enumerate(unique_inputs))
+import pickle
+filehandler = open(sys.argv[2]+'_dict.pickle','wb')
+pickle.dump(input_note_to_int, filehandler)
+filehandler.close()
+
 
 input_seq=[]
 for input_ in inputs:
