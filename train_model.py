@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from collections import Counter
 from sklearn.model_selection import train_test_split
+from datetime import datetime
 
 from keras.layers import *
 from keras.models import *
@@ -28,8 +29,7 @@ len_of_predictions = 30
 
 def read_midi(file):
     
-    print("Reading: " + file)
-    
+    print('began at: ', datetime.now())
     notes=[]
     notes_to_parse = None
     
@@ -52,8 +52,8 @@ def read_midi(file):
             notes_to_parse = part.recurse() 
       
             #finding whether a particular element is note or a chord
-            for element in notes_to_parse:
-                
+            for element in notes_to_parse[:1024]:
+                print(f'notes to parse: {len(list(notes_to_parse))}') 
                 #note
                 if isinstance(element, note.Note):
                     notes.append(str(element.pitch))
@@ -61,8 +61,6 @@ def read_midi(file):
                 #chord
                 elif isinstance(element, chord.Chord):
                     notes.append('.'.join(str(n) for n in element.normalOrder))
-    if len(notes) < 1:
-        print(file+' not piano-endowed')
     return np.array(notes)
 
 def convert_to_midi(prediction_output, filename):
@@ -102,12 +100,13 @@ def convert_to_midi(prediction_output, filename):
     midi_stream.write('midi', fp=filename)
     
 from glob import glob
-from multiprocess import Pool
+from multiprocess import Pool, set_start_method
 import time
 
+set_start_method('fork')
 
 TRAINING_SET_SIZE = int(sys.argv[1]) ## Cambiar
-NTHREADS = 32 ## Cambiar si necesario
+NTHREADS = 16 ## Cambiar si necesario
 
 files = [y for x in os.walk(path) for y in glob(os.path.join(x[0], '*.mid'))]
 print(len(files))
