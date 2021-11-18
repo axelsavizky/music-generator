@@ -6,25 +6,36 @@ import time
 import os
 import os.path
 import sys
+from music21 import *
+import numpy as np 
 
 model_path = sys.argv[1]
 dict_path = sys.argv[2]
 TEST_SET_SIZE = sys.argv[3]
 
-import numpy as np 
 
+
+
+def geo_mean_overflow(iterable):
+    return np.exp(np.log(iterable).mean())
 
 def get_predictions(model, song):
     N = len(song)
     predictions = []
-    for i in range(1, N):
+    for i in range(1, N ):
         # Get the first i notes
-        partial_song = song[:i]
+        
+        if i < 32:
+            partial_song = song[:i]
+        else:
+            partial_song = song[i-32:i]
         # Pad it with zeroes to get 32 notes
-        partial_song_with_padding = np.pad(partial_song, (n_of_timesteps - len(partial_song), 0), 'constant', constant_values=0)
+        partial_song_with_padding = np.pad(partial_song, (max(32 - len(partial_song), 0), 0), 'constant', constant_values=0)
+        
         # Evaluate it
         prob = model.predict(partial_song_with_padding.reshape(1, 32))
-        predictions.append(prob[song[i]][-1])
+
+        predictions.append(prob[0][song[i]])
     return predictions
 
 def stable_perplexity(predictions):
@@ -49,9 +60,6 @@ def calculate_perplexity_stable(model, song):
 
 
 def read_midi(file):
-    
-    print("Reading: " + file)
-    
     notes=[]
     notes_to_parse = None
     
@@ -97,13 +105,12 @@ def feedforward(model_path, model_dict_path, test_path):
     files = [y for x in os.walk(test_path) for y in glob(os.path.join(x[0], '*.mid'))]
     print(len(files))
     start = time.time()
-    #files=[i for i in os.listdir(path) if i.endswith(".mid")]
     with Pool(NTHREADS) as p:
-        notes_array = p.map(read_midi, files[10000:TEST_SET_SIZE])
+        notes_array = p.map(read_midi, files[32000:32000+TEST_SET_SIZE])
 
     print('filtering...')
     notes_array = [e for e in notes_array if e != np.array([])]
-
+    assert len(notes_array) > 0, "ERROR : songs array is empty!"
     notes_array = np.array(notes_array, dtype=object)
     print('notes...')
     
@@ -116,6 +123,15 @@ def feedforward(model_path, model_dict_path, test_path):
 
     input_seq = np.array(input_seq)
     
-    return np.asarray([calculate_perplexity_stable(model, song) for song in input_seq]).mean()
+    start = time.time()
+    perplexities =  [calculate_perplexity_stable(model, song) for song in input_seq]
+    end = time.time()
+    print(f'took {end - start} seconds')
+    print(perplexities)
+    return perplexities
     
-feedforward(sys.argv[1], sys.argv[2], 'gwern/midis/')
+result = feedforward(sys.argv[1], sys.argv[2], 'gwern/midis/')
+
+print('--- \n perplexity is: ')
+print(str(geo_mean_overflow(result)))
+print('---')
