@@ -5,4 +5,4 @@
 - Gwern long dataset: https://goo.gl/VezNNA
 
 ## Como correr perplexity
-python -W ignore feedforward.py model\_path dict\_path TEST\_SET\_SIZE
+python feedforward.py model\_path dict\_path TEST\_SET\_SIZE
