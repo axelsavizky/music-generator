@@ -1,0 +1,177 @@
+starting at:  2021-11-18 11:16:19.719914
+#files: 39712 | #training: 100 | #threads: 1
+reading: 1/100
+reading: 2/100
+reading: 3/100
+reading: 4/100
+reading: 5/100
+reading: 6/100
+reading: 7/100
+reading: 8/100
+reading: 9/100
+reading: 10/100
+reading: 11/100
+reading: 12/100
+reading: 13/100
+reading: 14/100
+reading: 15/100
+reading: 16/100
+reading: 17/100
+reading: 18/100
+reading: 19/100
+reading: 20/100
+reading: 21/100
+reading: 22/100
+reading: 23/100
+reading: 24/100
+reading: 25/100
+reading: 26/100
+reading: 27/100
+reading: 28/100
+reading: 29/100
+reading: 30/100
+reading: 31/100
+reading: 32/100
+reading: 33/100
+reading: 34/100
+reading: 35/100
+reading: 36/100
+reading: 37/100
+reading: 38/100
+reading: 39/100
+reading: 40/100
+reading: 41/100
+reading: 42/100
+reading: 43/100
+reading: 44/100
+reading: 45/100
+reading: 46/100
+reading: 47/100
+reading: 48/100
+reading: 49/100
+reading: 50/100
+reading: 51/100
+reading: 52/100
+reading: 53/100
+reading: 54/100
+reading: 55/100
+reading: 56/100
+reading: 57/100
+reading: 58/100
+reading: 59/100
+reading: 60/100
+reading: 61/100
+reading: 62/100
+reading: 63/100
+reading: 64/100
+reading: 65/100
+reading: 66/100
+reading: 67/100
+reading: 68/100
+reading: 69/100
+reading: 70/100
+reading: 71/100
+reading: 72/100
+reading: 73/100
+reading: 74/100
+reading: 75/100
+reading: 76/100
+reading: 77/100
+reading: 78/100
+reading: 79/100
+reading: 80/100
+reading: 81/100
+reading: 82/100
+reading: 83/100
+reading: 84/100
+reading: 85/100
+reading: 86/100
+reading: 87/100
+reading: 88/100
+reading: 89/100
+reading: 90/100
+reading: 91/100
+reading: 92/100
+reading: 93/100
+reading: 94/100
+reading: 95/100
+reading: 96/100
+reading: 97/100
+reading: 98/100
+reading: 99/100
+reading: 100/100
+2021-11-18 11:17:47.659320: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-11-18 11:17:48.072599: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:185] None of the MLIR Optimization Passes are enabled (registered 2)
+filtering...
+notes...
+took 87.36113214492798 seconds
+31
+377
+keeping ['G4', 'A4', 'A5', 'D4', 'F#2', 'C5', '4.7.11'] notes
+#input(training/validation): 1795/449
+#output(training/validation): 1795/449
+Epoch 1/5
+1/2 [==============>...............] - ETA: 1s - loss: 1.95122/2 [==============================] - ETA: 0s - loss: 1.92482/2 [==============================] - 2s 524ms/step - loss: 1.9248 - val_loss: 1.8658
+2021-11-18 11:17:50.201068: W tensorflow/python/util/util.cc:348] Sets are not currently considered sequences, but this may change in the future, so consider avoiding using them.
+
+Epoch 00001: val_loss improved from inf to 1.86579, saving model to model_bigdataset_100_relu
+Epoch 2/5
+1/2 [==============>...............] - ETA: 0s - loss: 1.81802/2 [==============================] - ETA: 0s - loss: 1.75162/2 [==============================] - 1s 444ms/step - loss: 1.7516 - val_loss: 1.6567
+
+Epoch 00002: val_loss improved from 1.86579 to 1.65671, saving model to model_bigdataset_100_relu
+Epoch 3/5
+1/2 [==============>...............] - ETA: 0s - loss: 1.47622/2 [==============================] - ETA: 0s - loss: 1.39902/2 [==============================] - 1s 321ms/step - loss: 1.3990 - val_loss: 1.2754
+
+Epoch 00003: val_loss improved from 1.65671 to 1.27545, saving model to model_bigdataset_100_relu
+Epoch 4/5
+1/2 [==============>...............] - ETA: 0s - loss: 1.12942/2 [==============================] - ETA: 0s - loss: 1.09852/2 [==============================] - 1s 285ms/step - loss: 1.0985 - val_loss: 1.0471
+
+Epoch 00004: val_loss improved from 1.27545 to 1.04715, saving model to model_bigdataset_100_relu
+Epoch 5/5
+1/2 [==============>...............] - ETA: 0s - loss: 0.94682/2 [==============================] - ETA: 0s - loss: 0.95812/2 [==============================] - 1s 277ms/step - loss: 0.9581 - val_loss: 0.9536
+
+Epoch 00005: val_loss improved from 1.04715 to 0.95356, saving model to model_bigdataset_100_relu
+finish at 2021-11-18 11:17:58.515054 (elapsed 0:01:38.795163)
+Epoch 1/5
+1/2 [==============>...............] - ETA: 1s - loss: 1.94612/2 [==============================] - ETA: 0s - loss: 1.86332/2 [==============================] - 2s 557ms/step - loss: 1.8633 - val_loss: 1.5807
+
+Epoch 00001: val_loss improved from inf to 1.58073, saving model to model_bigdataset_100_tanh
+Epoch 2/5
+1/2 [==============>...............] - ETA: 0s - loss: 1.53662/2 [==============================] - ETA: 0s - loss: 1.42972/2 [==============================] - 1s 391ms/step - loss: 1.4297 - val_loss: 1.1727
+
+Epoch 00002: val_loss improved from 1.58073 to 1.17269, saving model to model_bigdataset_100_tanh
+Epoch 3/5
+1/2 [==============>...............] - ETA: 0s - loss: 1.19902/2 [==============================] - ETA: 0s - loss: 1.14672/2 [==============================] - 1s 426ms/step - loss: 1.1467 - val_loss: 0.9548
+
+Epoch 00003: val_loss improved from 1.17269 to 0.95481, saving model to model_bigdataset_100_tanh
+Epoch 4/5
+1/2 [==============>...............] - ETA: 0s - loss: 0.93212/2 [==============================] - ETA: 0s - loss: 0.93952/2 [==============================] - 1s 292ms/step - loss: 0.9395 - val_loss: 0.8397
+
+Epoch 00004: val_loss improved from 0.95481 to 0.83972, saving model to model_bigdataset_100_tanh
+Epoch 5/5
+1/2 [==============>...............] - ETA: 0s - loss: 0.81632/2 [==============================] - ETA: 0s - loss: 0.83502/2 [==============================] - 1s 283ms/step - loss: 0.8350 - val_loss: 0.7902
+
+Epoch 00005: val_loss improved from 0.83972 to 0.79019, saving model to model_bigdataset_100_tanh
+finish at 2021-11-18 11:18:10.521592 (elapsed 0:01:50.801690)
+Epoch 1/5
+1/2 [==============>...............] - ETA: 1s - loss: 1.95162/2 [==============================] - ETA: 0s - loss: 1.95972/2 [==============================] - 2s 502ms/step - loss: 1.9597 - val_loss: 1.9439
+
+Epoch 00001: val_loss improved from inf to 1.94395, saving model to model_bigdataset_100_sigmoid
+Epoch 2/5
+1/2 [==============>...............] - ETA: 0s - loss: 2.08872/2 [==============================] - ETA: 0s - loss: 2.01662/2 [==============================] - 1s 353ms/step - loss: 2.0166 - val_loss: 1.8024
+
+Epoch 00002: val_loss improved from 1.94395 to 1.80243, saving model to model_bigdataset_100_sigmoid
+Epoch 3/5
+1/2 [==============>...............] - ETA: 0s - loss: 1.87552/2 [==============================] - ETA: 0s - loss: 1.88452/2 [==============================] - 1s 285ms/step - loss: 1.8845 - val_loss: 1.7887
+
+Epoch 00003: val_loss improved from 1.80243 to 1.78871, saving model to model_bigdataset_100_sigmoid
+Epoch 4/5
+1/2 [==============>...............] - ETA: 0s - loss: 1.77672/2 [==============================] - ETA: 0s - loss: 1.82442/2 [==============================] - 1s 279ms/step - loss: 1.8244 - val_loss: 1.8980
+
+Epoch 00004: val_loss did not improve from 1.78871
+Epoch 5/5
+1/2 [==============>...............] - ETA: 0s - loss: 1.89792/2 [==============================] - ETA: 0s - loss: 1.88372/2 [==============================] - 1s 289ms/step - loss: 1.8837 - val_loss: 1.7954
+
+Epoch 00005: val_loss did not improve from 1.78871
+finish at 2021-11-18 11:18:18.860136 (elapsed 0:01:59.140234)
