@@ -7,8 +7,47 @@ import os
 import os.path
 import sys
 
-model_path = 'model_test_1024.h5'
-dict_path = 'model_test_1024.h5_dict.pickle'
+model_path = sys.argv[1]
+dict_path = sys.argv[2]
+TEST_SET_SIZE = sys.argv[3]
+
+import numpy as np 
+
+
+def get_predictions(model, song):
+    N = len(song)
+    predictions = []
+    for i in range(1, N):
+        # Get the first i notes
+        partial_song = song[:i]
+        # Pad it with zeroes to get 32 notes
+        partial_song_with_padding = np.pad(partial_song, (n_of_timesteps - len(partial_song), 0), 'constant', constant_values=0)
+        # Evaluate it
+        prob = model.predict(partial_song_with_padding.reshape(1, 32))
+        predictions.append(prob[song[i]][-1])
+    return predictions
+
+def stable_perplexity(predictions):
+    N = len(predictions)
+    log_perplexity = 0
+    for prob in predictions:
+        log_perplexity += np.log(prob)
+    return np.exp(-log_perplexity/float(N))
+
+def default_perplexity(predictions):
+    N = len(predictions)
+    perplexity = 1
+    for prob in predictions:
+        perplexity*=prob
+    return (1/perplexity)**(1/float(N))
+
+def calculate_perplexity(model, song):
+    return default_perplexity(get_predictions(model, song))
+
+def calculate_perplexity_stable(model, song):    
+    return stable_perplexity(get_predictions(model, song))
+
+
 def read_midi(file):
     
     print("Reading: " + file)
