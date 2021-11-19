@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import seaborn as sb
 import numpy as np
 import pickle
-from feedforward import feedforward, geo_mean_overflow
+from feedforward import feedforward, geo_mean_overflow, load
+import sys
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -11,8 +12,8 @@ warnings.filterwarnings('ignore')
 MIDIS_PATH = 'gwern/midis/Big_Data_Set/'
 TEST_SET_LENGTH = 512
 
-def calc_perplexity(model_path, model_dict_path, test_path, test_set_size):
-    result = feedforward(model_path, model_dict_path, 'gwern/midis/Big_Data_Set/', test_set_size)
+def calc_perplexity(model_path, model_dict_path, notes_array):
+    result = feedforward(model_path, model_dict_path, notes_array)
     return geo_mean_overflow(result)
 
 
@@ -34,8 +35,13 @@ runs = [
     ("model_bigdataset_20000_sigmoid", "bigdataset_20000_dict.pickle"),
 ]
 
-results = {}
-for model, dict_notes in runs:
-    results[model] = calc_perplexity(model, dict_notes, MIDIS_PATH, TEST_SET_LENGTH)
 
-print(list(results.items()))
+if __name__ == "__main__":
+    TEST_SET_LENGTH = int(sys.argv[1])
+    print("#test_set_length: " + str(TEST_SET_LENGTH))
+    results = {}
+    notes_array = load(MIDIS_PATH, TEST_SET_LENGTH)
+    for model, dict_notes in runs:
+        results[model] = calc_perplexity(model, dict_notes, notes_array)
+
+    print(list(results.items()))
