@@ -34,9 +34,6 @@ def read_midi_wrapper(args):
 
 def read_midi(file, current, total):
     print(f'reading: {str(current)}/{str(total)}', flush=True)
-    if current == 10:
-        sleep(5)
-    current += 1
     notes=[]
     notes_to_parse = None
 
@@ -152,33 +149,42 @@ def fibonacci(n):
 if __name__ == "__main__":
     TRAINING_SET_SIZE = int(sys.argv[1]) ## Cambiar
 
-#     NTHREADS = 1
-    NTHREADS = multiprocessing.cpu_count()
+#     NWORKERS = 1
+    NWORKERS = multiprocessing.cpu_count()
 
     start_time = datetime.now()
     print('starting at: ', start_time)
 
     files = [y for x in os.walk(path) for y in glob(os.path.join(x[0], '*.mid'))]
-    print(f'#files: {str(len(files))} | #training: {TRAINING_SET_SIZE} | #threads: {str(NTHREADS)}')
+    print(f'#files: {str(len(files))} | #training: {TRAINING_SET_SIZE} | #workers: {str(NWORKERS)}')
     start = time.time()
     #files=[i for i in os.listdir(path) if i.endswith(".mid")]
 
     total = TRAINING_SET_SIZE
-    current = 1
     notes_array = []
     read_midi_input = [(file, i, total) for i, file in enumerate(files[:TRAINING_SET_SIZE])]
 
+    read = 0
     notes_array = []
     with ProcessPool() as pool:
-        future = pool.map(read_midi_wrapper, read_midi_input, timeout=30)
-        try:
-            for n in future.result():
-                notes_array.append(n)
-        except TimeoutError:
-            print ("couldn't read midi")
+        future = pool.map(read_midi_wrapper, read_midi_input, timeout=10, max_workers=NWORKERS)
+        iterator = future.result()
+        while True:
+            try:
+                result = next(iterator)
+                notes_array.append(result)
+                read += 1
+            except StopIteration:
+                print ("stop iteration!")
+                break
+            except TimeoutError as error:
+                print ("couldn't read midi")
 
+    print("read: " + str(read))
+    print("#notes_array: " + str(len(notes_array)))
     print('filtering...')
     notes_array = [e for e in notes_array if e.shape[0] > 2]
+    print("#filtered_notes_array: " + str(len(notes_array)))
 
     notes_array = np.array(notes_array, dtype=object)
     print('notes...')
