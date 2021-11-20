@@ -50,11 +50,38 @@ def read_midi(file, current, total):
     s2 = instrument.partitionByInstrument(midi)
     if not s2:
         return np.array([])
+
+    monophonics = [
+        'Flute',
+        'Baritone Saxophone',
+        'Trombone',
+        'Tenor Saxophone',
+        'Clarinet',
+        'Alto Saxophone',
+        'Bass',
+        'Voice',
+        'Acoustic Bass',
+        'Trumpet',
+        'Oboe']
+
     #Looping over all the instruments
     for part in s2.parts:
 
         #select elements of only piano
-        if 'Piano' in str(part):
+        # if 'Piano' in str(part):
+        if any(x in str(part) for x in monophonics):
+
+            # Transpose to C major / A minor
+            try:
+                key = part.analyze('key')
+                tonic = key.getTonic()
+            except:
+                return np.array([])
+
+            if key.mode == 'major':
+                part.transpose(tonic.pitchClass * -1, inPlace=True)
+            else:
+                part.transpose((tonic.pitchClass * -1) - 3, inPlace=True)
 
             notes_to_parse = part.recurse()
 
