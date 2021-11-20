@@ -143,7 +143,7 @@ if __name__ == "__main__":
 
     notes_array = []
     with ProcessPool() as pool:
-        future = pool.map(read_midi_wrapper, read_midi_input, timeout=3)
+        future = pool.map(read_midi_wrapper, read_midi_input, timeout=30)
         try:
             for n in future.result():
                 notes_array.append(n)
