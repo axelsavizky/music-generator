@@ -11,6 +11,8 @@ import numpy as np
 from pebble import ProcessPool
 from concurrent.futures import TimeoutError
 
+from utils import *
+
 def geo_mean_overflow(iterable):
     return np.exp(np.log(iterable).mean())
 
@@ -52,45 +54,6 @@ def calculate_perplexity(model, song):
 
 def calculate_perplexity_stable(model, song):
     return stable_perplexity(get_predictions(model, song))
-
-def read_midi_wrapper(args):
-    return read_midi(*args)
-
-def read_midi(file, current, total):
-    print(f'reading: {str(current)}/{str(total)}', flush=True)
-    notes=[]
-    notes_to_parse = None
-
-    #parsing a midi file
-    try:
-        midi = converter.parse(file)
-    except:
-        return np.array([])
-
-    #grouping based on different instruments
-    s2 = instrument.partitionByInstrument(midi)
-    if not s2:
-        return np.array([])
-    #Looping over all the instruments
-    for part in s2.parts:
-
-        #select elements of only piano
-        if 'Piano' in str(part):
-
-            notes_to_parse = part.recurse()
-
-            #finding whether a particular element is note or a chord
-            for element in notes_to_parse:
-
-                #note
-                if isinstance(element, note.Note):
-                    notes.append(str(element.pitch))
-
-                #chord
-                elif isinstance(element, chord.Chord):
-                    notes.append('.'.join(str(n) for n in element.normalOrder))
-    print(f'finish reading: {str(current)}/{str(total)}', flush=True)
-    return np.array(notes)
 
 def load(test_path, test_set_size):
     start = time.time()

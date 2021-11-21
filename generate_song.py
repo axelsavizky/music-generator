@@ -8,6 +8,8 @@ from music21 import *
 import numpy as np 
 import math
 
+from utils import *
+
 model_path = sys.argv[1]
 dict_path = sys.argv[2]
 file_path = sys.argv[3]
@@ -15,42 +17,6 @@ beam_search_k = int(sys.argv[4])
 generated_song_name = sys.argv[5]
 n_of_timesteps = 32
 len_of_predictions = 30
-
-
-def read_midi(file):
-    notes=[]
-    notes_to_parse = None
-    
-    #parsing a midi file
-    try:
-        midi = converter.parse(file)
-    except:
-        return np.array([])
-  
-    #grouping based on different instruments
-    s2 = instrument.partitionByInstrument(midi)
-    if not s2:
-        return np.array([])
-    #Looping over all the instruments
-    for part in s2.parts:
-    
-        #select elements of only piano
-        if 'Piano' in str(part): 
-        
-            notes_to_parse = part.recurse() 
-      
-            #finding whether a particular element is note or a chord
-            for element in notes_to_parse:
-                
-                #note
-                if isinstance(element, note.Note):
-                    notes.append(str(element.pitch))
-                
-                #chord
-                elif isinstance(element, chord.Chord):
-                    notes.append('.'.join(str(n) for n in element.normalOrder))
-
-    return np.array(notes)
 
 def convert_to_midi(prediction_output, filename):
    
