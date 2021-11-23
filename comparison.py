@@ -18,18 +18,18 @@ def calc_perplexity(model_path, model_dict_path, notes_array):
 
 
 runs = [
-    ("model_bigdataset_100_relu", "bigdataset_100_dict.pickle"),
-    ("model_bigdataset_100_tanh", "bigdataset_100_dict.pickle"),
-    ("model_bigdataset_100_sigmoid", "bigdataset_100_dict.pickle"),
-    ("model_bigdataset_1000_relu", "bigdataset_1000_dict.pickle"),
-    ("model_bigdataset_1000_tanh", "bigdataset_1000_dict.pickle"),
-    ("model_bigdataset_1000_sigmoid", "bigdataset_1000_dict.pickle"),
-    ("model_bigdataset_5000_relu", "bigdataset_5000_dict.pickle"),
-    ("model_bigdataset_5000_tanh", "bigdataset_5000_dict.pickle"),
-    ("model_bigdataset_5000_sigmoid", "bigdataset_5000_dict.pickle"),
+#     ("model_bigdataset_100_relu", "bigdataset_100_dict.pickle"),
+#     ("model_bigdataset_100_tanh", "bigdataset_100_dict.pickle"),
+#     ("model_bigdataset_100_sigmoid", "bigdataset_100_dict.pickle"),
+#     ("model_bigdataset_1000_relu", "bigdataset_1000_dict.pickle"),
+#     ("model_bigdataset_1000_tanh", "bigdataset_1000_dict.pickle"),
+#     ("model_bigdataset_1000_sigmoid", "bigdataset_1000_dict.pickle"),
+#     ("model_bigdataset_5000_relu", "bigdataset_5000_dict.pickle"),
+#     ("model_bigdataset_5000_tanh", "bigdataset_5000_dict.pickle"),
+#     ("model_bigdataset_5000_sigmoid", "bigdataset_5000_dict.pickle"),
 #     ("model_bigdataset_10000_relu", "bigdataset_10000_dict.pickle"),
-#     ("model_bigdataset_10000_tanh", "bigdataset_10000_dict.pickle"),
-#     ("model_bigdataset_10000_sigmoid", "bigdataset_10000_dict.pickle"),
+    ("model_bigdataset_10000_tanh", "bigdataset_10000_dict.pickle"),
+    ("model_bigdataset_10000_sigmoid", "bigdataset_10000_dict.pickle"),
 ]
 
 
