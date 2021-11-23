@@ -10,6 +10,7 @@ from music21 import *
 import numpy as np
 from pebble import ProcessPool
 from concurrent.futures import TimeoutError
+import multiprocessing
 
 from utils import *
 
@@ -62,17 +63,24 @@ def load(test_path, test_set_size):
     start = time.time()
 
     total = test_set_size
-    current = 1
     notes_array = []
     read_midi_input = [(file, i, total) for i, file in enumerate(files[32000:32000+test_set_size])]
     notes_array = []
+    read = 0
+    NWORKERS = multiprocessing.cpu_count()
     with ProcessPool() as pool:
-        future = pool.map(read_midi_wrapper, read_midi_input, timeout=5)
-        try:
-            for n in future.result():
-                notes_array.append(n)
-        except TimeoutError:
-            print ("couldn't read midi")
+        future = pool.map(read_midi_wrapper, read_midi_input, timeout=10, max_workers=NWORKERS)
+        iterator = future.result()
+        while True:
+            try:
+                result = next(iterator)
+                notes_array.append(result)
+                read += 1
+            except StopIteration:
+                print ("stop iteration!")
+                break
+            except TimeoutError as error:
+                print ("couldn't read midi")
 
     print('filtering...')
     notes_array = [e for e in notes_array if e != np.array([])]
