@@ -150,7 +150,7 @@ if __name__ == "__main__":
     print(f'#input(training/validation): {len(input_training)}/{len(input_validation)}')
     print(f'#output(training/validation): {len(output_training)}/{len(output_validation)}')
 
-    for activation_f in ['relu', 'tanh', 'sigmoid']:
+    for activation_f in ['tanh', 'sigmoid']:
 
         K.clear_session()
         model = Sequential()
