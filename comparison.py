@@ -27,12 +27,9 @@ runs = [
     ("model_bigdataset_5000_relu", "bigdataset_5000_dict.pickle"),
     ("model_bigdataset_5000_tanh", "bigdataset_5000_dict.pickle"),
     ("model_bigdataset_5000_sigmoid", "bigdataset_5000_dict.pickle"),
-    ("model_bigdataset_10000_relu", "bigdataset_10000_dict.pickle"),
-    ("model_bigdataset_10000_tanh", "bigdataset_10000_dict.pickle"),
-    ("model_bigdataset_10000_sigmoid", "bigdataset_10000_dict.pickle"),
-    ("model_bigdataset_20000_relu", "bigdataset_20000_dict.pickle"),
-    ("model_bigdataset_20000_tanh", "bigdataset_20000_dict.pickle"),
-    ("model_bigdataset_20000_sigmoid", "bigdataset_20000_dict.pickle"),
+#     ("model_bigdataset_10000_relu", "bigdataset_10000_dict.pickle"),
+#     ("model_bigdataset_10000_tanh", "bigdataset_10000_dict.pickle"),
+#     ("model_bigdataset_10000_sigmoid", "bigdataset_10000_dict.pickle"),
 ]
 
 
@@ -41,6 +38,7 @@ if __name__ == "__main__":
     print("#test_set_length: " + str(TEST_SET_LENGTH))
     results = {}
     notes_array = load(MIDIS_PATH, TEST_SET_LENGTH)
+    print("#notes_array: " + str(len(notes_array)))
     for model, dict_notes in runs:
         results[model] = calc_perplexity(model, dict_notes, notes_array)
 
