@@ -10,13 +10,15 @@ import math
 
 from utils import *
 
+n_of_timesteps = 32
+len_of_predictions = 30
 model_path = sys.argv[1]
 dict_path = sys.argv[2]
 file_path = sys.argv[3]
 beam_search_k = int(sys.argv[4])
 generated_song_name = sys.argv[5]
-n_of_timesteps = 32
-len_of_predictions = 30
+max_repetition = sys.argv[6] if len(sys.argv) > 6 else len_of_predictions
+tabu_list_length = sys.argv[7] if len(sys.argv) > 7 else 0
 
 def convert_to_midi(prediction_output, filename):
    
@@ -74,6 +76,10 @@ def beam_search_generator(starting_data, model, len_of_songs, k):
             seq, random_music, score = sequences[i]
             for j in range(len(prob[i])):
                 assert(len(random_music) == n_of_timesteps)
+                if len(seq) >= max_repetition and all(note == j for note in seq[-max_repetition:]):
+                    continue
+                if tabu_list_length > 0 and any(note == j for note in seq[-tabu_list_length:]):
+                    continue
                 new_random_music = np.insert(random_music,len(random_music),j)
                 new_random_music = new_random_music[1:]
                 candidate = [seq + [j], new_random_music, score - math.log(prob[i][j])]

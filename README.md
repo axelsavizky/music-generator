@@ -8,4 +8,4 @@
 python feedforward.py model\_path dict\_path TEST\_SET\_SIZE
 
 ## Como generar canción
-python generate_song.py model\_path dict\_path sample\_song\_path beam\_search\_k generated\_song\_name
+python generate_song.py model\_path dict\_path sample\_song\_path beam\_search\_k generated\_song\_name \[max\_consecutive\_note\_repetition\] \[tabu\_list\_length\]
