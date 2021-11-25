@@ -17,8 +17,8 @@ dict_path = sys.argv[2]
 file_path = sys.argv[3]
 beam_search_k = int(sys.argv[4])
 generated_song_name = sys.argv[5]
-max_repetition = sys.argv[6] if len(sys.argv) > 6 else len_of_predictions
-tabu_list_length = sys.argv[7] if len(sys.argv) > 7 else 0
+max_repetition = int(sys.argv[6]) if len(sys.argv) > 6 else len_of_predictions
+tabu_list_length = int(sys.argv[7]) if len(sys.argv) > 7 else 0
 
 def convert_to_midi(prediction_output, filename):
    
