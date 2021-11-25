@@ -1,5 +1,7 @@
 # Music generator
 
+## Informe: https://www.overleaf.com/project/6197edb953b938dd31085830
+
 ## Datasets:
 - Schubert short dataset: https://drive.google.com/file/d/1qnQVK17DNVkU19MgVA4Vg88zRDvwCRXw/view
 - Gwern long dataset: https://goo.gl/VezNNA
